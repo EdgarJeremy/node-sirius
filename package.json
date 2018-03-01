@@ -1,0 +1,31 @@
+{
+  "name": "node-sirius",
+  "version": "1.0.0",
+  "description": "Template REST API Sirius Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edgarjeremy/node-sirius.git"
+  },
+  "author": "EdgarJeremy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/edgarjeremy/node-sirius/issues"
+  },
+  "homepage": "https://github.com/edgarjeremy/node-sirius#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "knex": "^0.14.4",
+    "lodash": "^4.17.5",
+    "mysql": "^2.15.0",
+    "password-hash": "^1.2.2",
+    "sirius-express": "^1.0.3",
+    "socket.io": "^2.0.4"
+  }
+}

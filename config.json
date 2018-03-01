@@ -1,0 +1,22 @@
+{
+    "server": {
+        "port": 8085
+    },
+    "request": {
+        "limit": "1024mb"
+    },
+    "session": {
+        "secret": "session_secret_exilevilify",
+        "maxAge": 36000000
+    },
+    "folders": {
+        "routes": "routes",
+        "models": "models"
+    },
+    "database": {
+        "host": "localhost",
+        "user": "root",
+        "password": "",
+        "database": "bastianos"
+    }
+}
