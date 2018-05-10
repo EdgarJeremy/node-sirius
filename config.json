@@ -1,6 +1,6 @@
 {
     "server": {
-        "port": 8085
+        "port": 8081
     },
     "request": {
         "limit": "1024mb"
@@ -15,8 +15,12 @@
     },
     "database": {
         "host": "localhost",
-        "user": "root",
-        "password": "",
-        "database": "bastianos"
+        "user": "tiler",
+        "password": "tilersirius221b",
+        "database": "manado",
+        "port": 5432
+    },
+    "spatials": {
+        "layerName": "wilayah"
     }
 }
