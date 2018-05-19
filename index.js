@@ -16,6 +16,8 @@ const knex = require("knex")({
 });
 const utils = require("./core/utils");
 server.listen(config.server.port);
+const socketListener = require("./websocket/listener");
+socketListener.listen(io);
 
 /**
  * App constants
@@ -62,7 +64,7 @@ fs.readdirSync(config.folders.models).forEach(function(file, index){
  */
 fs.readdirSync(config.folders.routes).forEach(function(file, index){
     let route = file.split(".")[0];
-    app.use(`/${route}`, require(`./${config.folders.routes}/${file}`)(app, models, utils, io));
+    app.use(`/${route}`, require(`./${config.folders.routes}/${file}`)(app, models, utils, socketListener));
 });
 
 /**
