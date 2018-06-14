@@ -1,6 +1,9 @@
 /** 
  * Utilities
 */
+import bcrypt from "bcrypt";
+import config from "../config.json";
+
 module.exports = {
 
     table_prefix: function (fields, prefix) {
@@ -34,6 +37,24 @@ module.exports = {
 
     format_date: function (waktu = new Date()) {
         return `${waktu.getFullYear()}-${this.num_pad(waktu.getMonth() + 1)}-${this.num_pad(waktu.getDate())}`;
+    },
+
+    hash: function(password) {
+        return new Promise((resolve, reject) => {
+            bcrypt.hash(password, config.encryption.salt_rounds, (err, res) => {
+                if(err) return reject(err);
+                resolve(res);
+            });
+        });
+    },
+
+    verify: function(hashed, plain) {
+        return new Promise((resolve, reject) => {
+            bcrypt.compare(plain, hashed, (err, res) => {
+                if(err) return reject(err);
+                resolve(res);
+            })
+        });
     }
 
 }

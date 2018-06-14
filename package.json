@@ -1,10 +1,11 @@
 {
-  "name": "node-sirius",
-  "version": "1.0.0",
+  "name": "sirius.js",
+  "version": "2.0.0",
   "description": "Template REST API Sirius Node.js",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon --exec babel-node index.js",
+    "seed": "babel-node seed.js"
   },
   "repository": {
     "type": "git",
@@ -17,16 +18,29 @@
   },
   "homepage": "https://github.com/edgarjeremy/node-sirius#readme",
   "dependencies": {
+    "bcrypt": "^2.0.1",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
+    "faker": "^4.1.0",
     "knex": "^0.14.5",
     "lodash": "^4.17.5",
-    "mysql": "^2.15.0",
+    "mysql2": "^1.5.3",
     "password-hash": "^1.2.2",
-    "pg": "^7.4.1",
+    "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.37.10",
     "sirius-express": "^1.0.3",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.0.4",
+    "sqlite3": "^4.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "cli-table": "^0.3.1",
+    "console.table": "^0.10.0"
   }
 }

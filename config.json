@@ -1,12 +1,12 @@
 {
     "server": {
-        "port": 8081
+        "port": 8080
     },
     "request": {
         "limit": "1024mb"
     },
     "session": {
-        "secret": "session_secret_exilevilify",
+        "secret": "sirius_secret_4d2f86",
         "maxAge": 36000000
     },
     "folders": {
@@ -15,12 +15,14 @@
     },
     "database": {
         "host": "localhost",
-        "user": "tiler",
-        "password": "tilersirius221b",
-        "database": "manado",
-        "port": 5432
+        "user": "root",
+        "password": "",
+        "database": "sirius",
+        "port": 3306,
+        "dialect": "mysql"
     },
-    "spatials": {
-        "layerName": "wilayah"
-    }
+    "encryption": {
+        "salt_rounds": 10
+    },
+    "cors": "*"
 }
