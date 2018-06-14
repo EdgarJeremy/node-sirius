@@ -39,22 +39,32 @@ module.exports = {
         return `${waktu.getFullYear()}-${this.num_pad(waktu.getMonth() + 1)}-${this.num_pad(waktu.getDate())}`;
     },
 
-    hash: function(password) {
-        return new Promise((resolve, reject) => {
-            bcrypt.hash(password, config.encryption.salt_rounds, (err, res) => {
-                if(err) return reject(err);
-                resolve(res);
-            });
-        });
+    hash: function (password) {
+        const { salt_rounds } = config.encryption;
+        return bcrypt.hashSync(password, salt_rounds);
     },
 
-    verify: function(hashed, plain) {
-        return new Promise((resolve, reject) => {
-            bcrypt.compare(plain, hashed, (err, res) => {
-                if(err) return reject(err);
-                resolve(res);
-            })
+    verify: function (hashed, plain) {
+        const { salt_rounds } = config.encryption;
+        return bcrypt.compareSync(plain, hashed);
+    },
+
+    craft_seed_data: function craft_data(target) {
+        let data = {};
+        Object.keys(target).forEach((key) => {
+            if(typeof target[key] === "function") {
+                data[key] = target[key]();
+            } else {
+                if(typeof target[key] !== "undefined") {
+                    if(key.async_wrap) {
+                        data[key] = target[key].wrap(target[key].method());
+                    } else {
+                        data[key] = target[key].wrap(target[key].method());
+                    }
+                }
+            }
         });
+        return data;
     }
 
 }

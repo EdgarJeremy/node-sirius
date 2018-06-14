@@ -1,5 +1,6 @@
 {
     "server": {
+        "protocol": "http",
         "port": 8080
     },
     "request": {
@@ -24,5 +25,10 @@
     "encryption": {
         "salt_rounds": 10
     },
+    "migration": {
+        "watch": false,
+        "renew": false
+    },
+    "environment": "production",
     "cors": "*"
 }
