@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/edgarjeremy/node-sirius.git"
+    "url": "git+https://github.com/edgarjeremy/sirius.js.git"
   },
   "author": "EdgarJeremy",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/edgarjeremy/node-sirius/issues"
+    "url": "https://github.com/edgarjeremy/sirius.js/issues"
   },
-  "homepage": "https://github.com/edgarjeremy/node-sirius#readme",
+  "homepage": "https://github.com/edgarjeremy/sirius.js#readme",
   "dependencies": {
     "bcrypt": "^2.0.1",
     "body-parser": "^1.18.2",
