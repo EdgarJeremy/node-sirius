@@ -133,9 +133,11 @@ Konsep untuk mendefiniskan endpoint adalah sebagai berikut :
         - `/index`
         - `/users`
     - Dengan demikian, maka daftar full URI `endpoint` yang tersedia dengan contoh sejauh ini adalah :
+
         | HTTP Verb | Basepoint | Endpoint | URI                             |
         |-----------|-----------|----------|---------------------------------|
         | GET       | /api      | /index   | http://localhost:8080/api/index |
         | GET       | /api      | /users   | http://localhost:8080/api/users |
+        
 5. Tentang parameter, query, body menggunakan metode yang sama dengan [ExpressJS](https://expressjs.com/en/api.html#express)
 
