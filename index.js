@@ -44,8 +44,8 @@ app.use(session({
     saveUninitialized: false
 }))
 app.use(sirius({
-    showPost: true,
-    showGet: true
+    showPost: config.request.show_post,
+    showGet: config.request.show_get
 }));
 
 /**
