@@ -1,5 +1,6 @@
 import Sequelize from "sequelize";
-import { database } from "../config.json";
+import { database, environment } from "../config.json";
+import fs from "fs";
 
 const sequelize = new Sequelize(
     database.database,
@@ -7,13 +8,25 @@ const sequelize = new Sequelize(
     database.password,
     {
         host: database.host,
-        dialect: database.dialect
+        dialect: database.dialect,
+        logging: environment === "development"
     }
 );
 
 const models = {
-    user: sequelize.import("./user")
+    user: sequelize.import("./user"),
+    article: sequelize.import("./article")
 };
+
+/**
+ * Using below code to do automatic models object crafting
+ */
+// const models = { }
+// fs.readdirSync(__dirname).forEach((file) => {
+//     if(file.indexOf(".js") !== -1 && file !== "index.js") {
+//         models[file.replace(".js", "")] = sequelize.import(`${__dirname}/${file}`);
+//     }
+// });
 
 Object.keys(models).forEach((model) => {
     if("associate" in models[model]) {

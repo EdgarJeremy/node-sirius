@@ -10,6 +10,7 @@ import cors from "cors";
 import session from "express-session";
 import bodyParser from "body-parser";
 import Table from "cli-table";
+import ip from "ip";
 
 import config from "./config.json";
 import packageInfo from "./package.json";
@@ -70,14 +71,18 @@ app.get("/", function (req, res) {
 /**
  * Synchronize & motd 
  */
-models.sequelize.sync().then(() => {
+models.sequelize.sync({
+    alter: config.migration.watch,
+    force: config.migration.renew
+}).then(() => {
     server.listen(config.server.port);
     socketListener.listen(io);
     const motd = new Table();
     motd.push(
-        { "App Name": packageInfo.name },
-        { "Version": packageInfo.version },
-        { "Running Port": config.server.port }
+        { "Nama App": packageInfo.name },
+        { "Versi": packageInfo.version },
+        { "Running Port": config.server.port },
+        { "Root Endpoint": `${config.server.protocol}://${ip.address()}:${config.server.port}/` }
     );
     console.log(motd.toString());
 });
