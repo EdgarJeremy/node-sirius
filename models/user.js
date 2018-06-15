@@ -17,5 +17,9 @@ export default (sequelize, DataTypes) => {
         underscored: true
     });
 
+    User.associate = (models) => {
+        User.hasMany(models.article);
+    }
+
     return User;
 }

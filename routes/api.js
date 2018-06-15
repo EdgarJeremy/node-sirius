@@ -11,7 +11,9 @@ function api(app, socketListener) {
      */
     router.get("/users", async (req,res) => {
         res.setStatus(res.OK);
-        res.setData(await models.user.findAll());
+        res.setData(await models.user.findAll({
+            include: [{ model: models.article }]
+        }));
         res.go();
     });
     

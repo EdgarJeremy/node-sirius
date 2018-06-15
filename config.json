@@ -29,6 +29,6 @@
         "watch": false,
         "renew": false
     },
-    "environment": "production",
+    "environment": "development",
     "cors": "*"
 }

@@ -14,7 +14,8 @@ const sequelize = new Sequelize(
 );
 
 const models = {
-    user: sequelize.import("./user")
+    user: sequelize.import("./user"),
+    article: sequelize.import("./article")
 };
 
 /**

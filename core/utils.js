@@ -3,6 +3,7 @@
 */
 import bcrypt from "bcrypt";
 import config from "../config.json";
+import models from "../models";
 
 module.exports = {
 
@@ -45,25 +46,28 @@ module.exports = {
     },
 
     verify: function (hashed, plain) {
-        const { salt_rounds } = config.encryption;
         return bcrypt.compareSync(plain, hashed);
     },
 
-    craft_seed_data: function craft_data(target) {
+    craft_seed_data: async function (target) {
         let data = {};
-        Object.keys(target).forEach((key) => {
-            if(typeof target[key] === "function") {
-                data[key] = target[key]();
+        let keys = Object.keys(target);
+        for(let i = 0; i < keys.length; i++) {
+            let key = keys[i];
+            let field = target[keys[i]];
+            if(typeof field === "function") {
+                data[key] = field();
             } else {
-                if(typeof target[key] !== "undefined") {
-                    if(key.async_wrap) {
-                        data[key] = target[key].wrap(target[key].method());
-                    } else {
-                        data[key] = target[key].wrap(target[key].method());
+                if(typeof field === "object") {
+                    if(field.wrap) {
+                        data[key] = field.wrap(field.method());
+                    } else if(field.table) {
+                        let rel = await models[field.table].findOne({attributes: ["id"], order: models.Sequelize.literal("rand()")});
+                        data[key] = rel.id;
                     }
                 }
             }
-        });
+        }
         return data;
     }
 
