@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import config from "../config.json";
 import models from "../models";
 
-module.exports = {
+export default {
 
     table_prefix: function (fields, prefix) {
         let newFields = {};
@@ -23,11 +23,6 @@ module.exports = {
             }
         }
         return null;
-    },
-
-    format_nota: function (no_urut) {
-        var waktu = new Date();
-        return `${this.format_date(waktu)}/${no_urut}`;
     },
 
     num_pad: function (num, size) {
