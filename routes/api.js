@@ -4,19 +4,19 @@
 import models from "../models";
 
 function api(app, socketListener) {
-    var router = app.get("express").Router();
+    let router = app.get("express").Router();
 
     /**
-     * Router here..
+     * Router disini..
      */
-    router.get("/users", async (req,res) => {
+    router.get("/users", async (req, res) => {
         res.setStatus(res.OK);
         res.setData(await models.user.findAll({
             include: [{ model: models.article }]
         }));
         res.go();
     });
-    
+
     return router;
 }
 

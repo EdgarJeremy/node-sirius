@@ -4,7 +4,9 @@
         "port": 8080
     },
     "request": {
-        "limit": "1024mb"
+        "limit": "1024mb",
+        "show_post": true,
+        "show_get": true
     },
     "session": {
         "secret": "sirius_secret_4d2f86",
