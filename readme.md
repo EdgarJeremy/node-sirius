@@ -126,7 +126,7 @@ Konsep untuk mendefiniskan endpoint adalah sebagai berikut :
 1. Setiap file router mendefinisikan satu `basepoint` berdasarkan nama filenya.
 2. `basepoint` adalah segment pertama dari URI
 3. `endpoint` adalah segment kedua dari URI. Ditentukan berdasarkan route yang didefinisikan dalam router.
-4. Jika diasumsikan framework berjalan di _local machine_ dan definisi route seperti pada contoh diatas (`./routes/api.js`) maka:
+4. Jika diasumsikan framework berjalan di _local machine_, menggunakan port default (8080) dan definisi route seperti pada contoh diatas (`./routes/api.js`) maka:
     - Akses : `http://localhost:8080`
     - Basepoint : `/api` (sesuai dengan nama file routes tanpa ekstensi `api.js`)
     - Endpoint :
@@ -138,6 +138,6 @@ Konsep untuk mendefiniskan endpoint adalah sebagai berikut :
         |-----------|-----------|----------|---------------------------------|
         | GET       | /api      | /index   | http://localhost:8080/api/index |
         | GET       | /api      | /users   | http://localhost:8080/api/users |
-        
+
 5. Tentang parameter, query, body menggunakan metode yang sama dengan [ExpressJS](https://expressjs.com/en/api.html#express)
 

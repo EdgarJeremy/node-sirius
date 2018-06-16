@@ -9,6 +9,7 @@ import sirius from "sirius-express";
 import cors from "cors";
 import session from "express-session";
 import bodyParser from "body-parser";
+import jwt from "jsonwebtoken";
 import Table from "cli-table";
 import ip from "ip";
 
@@ -42,10 +43,11 @@ app.use(session({
     },
     resave: true,
     saveUninitialized: false
-}))
+}));
 app.use(sirius({
     showPost: config.request.show_post,
-    showGet: config.request.show_get
+    showGet: config.request.show_get,
+    secret: config.session.secret
 }));
 
 /**
