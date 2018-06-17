@@ -1,7 +1,7 @@
 import Sequelize from "sequelize";
 import path from "path";
 import fs from "fs";
-import { database, environment, folders } from "../../config.json";
+import { database, environment, folders, time } from "../../config.json";
 
 const sequelize = new Sequelize(
     database.database,
@@ -14,7 +14,7 @@ const sequelize = new Sequelize(
         dialectOptions: {
             useUTC: true
         },
-        timezone: "+08:00"
+        timezone: time.zone
     }
 );
 
