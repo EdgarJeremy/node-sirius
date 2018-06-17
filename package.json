@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon --exec babel-node index.js",
     "seed": "babel-node ./core/generator/seed.js",
-    "make": "babel-node ./core/generator/make.js"
+    "make": "babel-node ./core/generator/make.js",
+    "inspect": "babel-node ./core/inspector/cli.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
   "dependencies": {
     "bcrypt": "^2.0.1",
     "body-parser": "^1.18.2",
+    "cli-table2": "^0.2.0",
     "cors": "^2.8.4",
     "express": "^4.16.2",
     "express-session": "^1.15.6",

@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import makeRoutes from "../templates/routes";
+import makeModels from "../templates/models";
 import utils from "../utils";
 import config from "../../config.json";
 
@@ -17,10 +18,17 @@ if (action === "route") {
         if(err) {
             utils.log(err, "error");
         }
-        utils.log(`Route ${name} berhasil dibuat`, "success");
+        utils.log(`Route '${name}' berhasil dibuat`, "success");
     });
-} else {
+} else if(action === "model") {
     /**
      * Make model
      */
+    let folder = path.join(__dirname, "..", "..", config.folders.models);
+    fs.writeFile(`${folder}/${name.toLowerCase()}.js`, makeModels(name), (err) => {
+        if(err) {
+            utils.log(err, "error");
+        }
+        utils.log(`Model '${name}' berhasil dibuat`, "success");
+    });
 }

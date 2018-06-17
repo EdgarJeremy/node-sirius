@@ -67,7 +67,7 @@ export default {
         return data;
     },
 
-    log: function(message, status, color = "white") {
+    log: function(message, status, color = "white", nl = "\n\n") {
         let tick = "";
         if(status === "success"){
             color = "green";
@@ -76,8 +76,10 @@ export default {
             color = "red";
             tick = "✗";
         }
-        console.log("\n\n");
-        console.log(`${tick} ${message}`[color]);
+        let out = color ? `${tick} ${message}`[color] : `${tick} ${message}`;
+        if(nl)
+            console.log(nl);
+        console.log(out);
     }
 
 }

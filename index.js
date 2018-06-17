@@ -16,6 +16,8 @@ import packageInfo from "./package.json";
 import socketListener from "./websocket/listener";
 import models from "./core/importer/model";
 import routes from "./core/importer/route";
+import getRoutesData from "./core/inspector/route";
+import utils from "./core/utils";
 
 const app = express();
 const server = http.Server(app);
@@ -78,11 +80,17 @@ models.sequelize.sync({
     server.listen(config.server.port);
     socketListener.listen(io);
     const motd = new Table();
+
     motd.push(
         { "Nama App": packageInfo.name },
         { "Versi": packageInfo.version },
         { "Running Port": config.server.port },
         { "Root Endpoint": `${config.server.protocol}://${ip.address()}:${config.server.port}/` }
     );
+    const routesData = getRoutesData(app);
+    utils.log("Server berjalan! Selamat bekerja :)", "success", "", "\n");
+    utils.log("Info Aplikasi : ", "", "", " ");
     console.log(motd.toString());
+    utils.log("Daftar endpoint : ", "", "", "");
+    console.log(routesData.string);
 });
