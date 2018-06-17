@@ -1,4 +1,6 @@
 import Table from "cli-table2";
+import ip from "ip";
+import { server } from "../../config.json";
 import routes from "../importer/route";
 
 export default (app) => {
@@ -21,14 +23,14 @@ export default (app) => {
         }
     });
     
-    const table = new Table({ head: ["Basepoint", "Endpoint", "HTTP Verb"] });
+    const table = new Table({ head: ["Basepoint", "Endpoint", "HTTP Verb", "Full URI"] });
     Object.keys(route_data).forEach((basepoint) => {
         let basepoint_data = route_data[basepoint];
         basepoint_data.endpoints.forEach((endpoint_data, i) => {
             if(i === 0) {
-                table.push([{ rowSpan: basepoint_data.endpoints.length, content: basepoint, vAlign: "center" }, endpoint_data.endpoint, endpoint_data.verbs]);
+                table.push([{ rowSpan: basepoint_data.endpoints.length, content: basepoint, vAlign: "center" }, endpoint_data.endpoint, endpoint_data.verbs, `${server.protocol}://${ip.address()}:${server.port}${basepoint}${endpoint_data.endpoint}`]);
             } else {
-                table.push([endpoint_data.endpoint, endpoint_data.verbs]);
+                table.push([endpoint_data.endpoint, endpoint_data.verbs, `${server.protocol}://${ip.address()}:${server.port}${basepoint}${endpoint_data.endpoint}`]);
             }
         });
     });
