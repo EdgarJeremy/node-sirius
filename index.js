@@ -4,19 +4,18 @@
 import express from "express";
 import http from "http";
 import socketio from "socket.io";
-import fs from "fs";
 import sirius from "sirius-express";
 import cors from "cors";
 import session from "express-session";
 import bodyParser from "body-parser";
-import jwt from "jsonwebtoken";
 import Table from "cli-table";
 import ip from "ip";
 
 import config from "./config.json";
 import packageInfo from "./package.json";
 import socketListener from "./websocket/listener";
-import models from "./models";
+import models from "./core/importer/model";
+import routes from "./core/importer/route";
 
 const app = express();
 const server = http.Server(app);
@@ -53,9 +52,8 @@ app.use(sirius({
 /**
  * Load semua routes
  */
-fs.readdirSync(config.folders.routes).forEach(function (file, index) {
-    let route = file.split(".")[0];
-    app.use(`/${route}`, require(`./${config.folders.routes}/${file}`)(app, socketListener));
+Object.keys(routes).forEach(function (route) {
+    app.use(`/${route}`, routes[route](app, models, socketListener));
 });
 
 /**

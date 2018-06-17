@@ -1,9 +1,8 @@
 /**
  * Api routes
  */
-import models from "../models";
 
-function api(app, socketListener) {
+function api(app, models, socketListener) {
     let router = app.get("express").Router();
 
     /**

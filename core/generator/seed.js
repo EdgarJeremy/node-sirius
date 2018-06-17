@@ -1,6 +1,6 @@
-import models from "../models";
-import utils from "../core/utils";
-import seedconfig from "./seedconfig";
+import models from "../importer/model";
+import utils from "../utils";
+import seedconfig from "../../seedconfig";
 
 const args = process.argv[2];
 
@@ -19,17 +19,17 @@ if (args) {
                     bulk.push(await utils.craft_seed_data(target));
                 }
                 models[entity].bulkCreate(bulk).then((ret) => {
-                    console.log(`✓ ${times} data ${entity} tersimpan`);
-                }).catch(console.log);
+                    utils.log(`${times} data ${entity} tersimpan`, "success");
+                }).catch((err) => utils.log(err, "error"));
             } else {
-                console.log(`✗ Model untuk entity ${entity} tidak ditemukan`);
+                utils.log(`Model untuk entity ${entity} tidak ditemukan`, "error");
             }
 
         });
 
     } else {
-        console.log(`✗ Entity ${entity} tidak ditemukan. Sertakan konfigurasi seed untuk entity ${entity} di ./seed/seedconfig.js`);
+        utils.log(`Entity ${entity} tidak ditemukan. Sertakan konfigurasi seed untuk entity ${entity} di ./seed/seedconfig.js`, "error");
     }
 } else {
-    console.log(`✗ Sertakan target entity dan jumlah seed {entity:n}`);
+    utils.log(`Sertakan target entity dan jumlah seed {entity:n}`, "error");
 }
