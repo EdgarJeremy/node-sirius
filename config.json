@@ -32,5 +32,8 @@
         "renew": false
     },
     "environment": "development",
+    "time": {
+        "zone": "+08:00"
+    },
     "cors": "*"
 }

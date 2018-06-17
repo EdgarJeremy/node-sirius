@@ -3,7 +3,8 @@
 */
 import bcrypt from "bcrypt";
 import config from "../config.json";
-import models from "../models";
+import models from "./importer/model";
+import colors from "colors";
 
 export default {
 
@@ -64,6 +65,21 @@ export default {
             }
         }
         return data;
+    },
+
+    log: function(message, status, color = "white", nl = "\n\n") {
+        let tick = "";
+        if(status === "success"){
+            color = "green";
+            tick = "✓";
+        } else if(status === "error") {
+            color = "red";
+            tick = "✗";
+        }
+        let out = color ? `${tick} ${message}`[color] : `${tick} ${message}`;
+        if(nl)
+            console.log(nl);
+        console.log(out);
     }
 
 }

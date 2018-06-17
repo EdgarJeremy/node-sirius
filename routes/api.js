@@ -1,9 +1,8 @@
 /**
  * Api routes
  */
-import models from "../models";
 
-function api(app, socketListener) {
+function api(app, models, socketListener) {
     let router = app.get("express").Router();
 
     /**
@@ -12,7 +11,7 @@ function api(app, socketListener) {
     router.get("/users", async (req, res) => {
         res.setStatus(res.OK);
         res.setData(await models.user.findAll({
-            include: [{ model: models.article }]
+            include: [{ model: models.article }, { model: models.note }]
         }));
         res.go();
     });

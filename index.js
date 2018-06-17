@@ -4,19 +4,20 @@
 import express from "express";
 import http from "http";
 import socketio from "socket.io";
-import fs from "fs";
 import sirius from "sirius-express";
 import cors from "cors";
 import session from "express-session";
 import bodyParser from "body-parser";
-import jwt from "jsonwebtoken";
 import Table from "cli-table";
 import ip from "ip";
 
 import config from "./config.json";
 import packageInfo from "./package.json";
 import socketListener from "./websocket/listener";
-import models from "./models";
+import models from "./core/importer/model";
+import routes from "./core/importer/route";
+import getRoutesData from "./core/inspector/route";
+import utils from "./core/utils";
 
 const app = express();
 const server = http.Server(app);
@@ -53,9 +54,8 @@ app.use(sirius({
 /**
  * Load semua routes
  */
-fs.readdirSync(config.folders.routes).forEach(function (file, index) {
-    let route = file.split(".")[0];
-    app.use(`/${route}`, require(`./${config.folders.routes}/${file}`)(app, socketListener));
+Object.keys(routes).forEach(function (route) {
+    app.use(`/${route}`, routes[route](app, models, socketListener));
 });
 
 /**
@@ -80,11 +80,17 @@ models.sequelize.sync({
     server.listen(config.server.port);
     socketListener.listen(io);
     const motd = new Table();
+
     motd.push(
         { "Nama App": packageInfo.name },
         { "Versi": packageInfo.version },
         { "Running Port": config.server.port },
         { "Root Endpoint": `${config.server.protocol}://${ip.address()}:${config.server.port}/` }
     );
+    const routesData = getRoutesData(app);
+    utils.log("Server berjalan! Selamat bekerja :)", "success", "", "\n");
+    utils.log("Info Aplikasi : ", "", "", " ");
     console.log(motd.toString());
+    utils.log("Daftar endpoint : ", "", "", "");
+    console.log(routesData.string);
 });
