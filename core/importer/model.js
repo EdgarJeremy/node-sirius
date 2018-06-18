@@ -10,11 +10,12 @@ const sequelize = new Sequelize(
     {
         host: database.host,
         dialect: database.dialect,
-        logging: environment === "development",
+        logging: environment === "development" ? console.log : false,
         dialectOptions: {
             useUTC: true
         },
-        timezone: time.zone
+        timezone: time.zone,
+        operatorsAliases: false
     }
 );
 

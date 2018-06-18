@@ -79,16 +79,16 @@ models.sequelize.sync({
 }).then(() => {
     server.listen(config.server.port);
     socketListener.listen(io);
+    console.log('\x1Bc');
     const motd = new Table();
-
     motd.push(
-        { "Nama App": packageInfo.name },
-        { "Versi": packageInfo.version },
-        { "Running Port": config.server.port },
-        { "Root Endpoint": `${config.server.protocol}://${ip.address()}:${config.server.port}/` }
+        { ["Nama App".blue.bold]: packageInfo.name },
+        { ["Versi".blue.bold]: packageInfo.version },
+        { ["Running Port".blue.bold]: config.server.port },
+        { ["Entrypoint".blue.bold]: `${config.server.protocol}://${ip.address()}:${config.server.port}/` }
     );
     const routesData = getRoutesData(app);
-    utils.log("Server berjalan! Selamat bekerja :)", "success", "", "\n");
+    utils.log("Server berhasil dijalankan!\nAkses semua endpoint yang terdaftar melalui entrypoint yang tertera dibawah.\nGunakan Postman (https://www.getpostman.com/) untuk mendebug API.\nSelamat bekerja :)", "success", "", "\n");
     utils.log("Info Aplikasi : ", "", "", " ");
     console.log(motd.toString());
     utils.log("Daftar endpoint : ", "", "", "");
