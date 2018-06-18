@@ -2,6 +2,7 @@ import Table from "cli-table2";
 import ip from "ip";
 import { server } from "../../config.json";
 import routes from "../importer/route";
+import colors from "colors";
 
 export default (app) => {
 
@@ -23,7 +24,7 @@ export default (app) => {
         }
     });
     
-    const table = new Table({ head: ["Basepoint", "Endpoint", "HTTP Verb", "Full URI"] });
+    const table = new Table({ head: ["Basepoint".cyan.bold, "Endpoint".cyan.bold, "HTTP Verb".cyan.bold, "Full URI".cyan.bold] });
     Object.keys(route_data).forEach((basepoint) => {
         let basepoint_data = route_data[basepoint];
         basepoint_data.endpoints.forEach((endpoint_data, i) => {
