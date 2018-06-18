@@ -35,5 +35,13 @@
     "time": {
         "zone": "+08:00"
     },
+    "user_token": {
+        "use": true,
+        "tokenSecret": "77120a4ab35ac7d7e35612426d9c7d07",
+        "refreshTokenSecret": "ac4f6110b37ecf34ae8145c758294326",
+        "userModel": "user",
+        "tokenExpire": "1m",
+        "refreshTokenExpire": "7d"
+    },
     "cors": "*"
 }

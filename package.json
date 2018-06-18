@@ -33,7 +33,7 @@
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.37.10",
-    "sirius-express": "^1.0.7",
+    "sirius-express": "^1.0.9",
     "socket.io": "^2.0.4",
     "sqlite3": "^4.0.0"
   },

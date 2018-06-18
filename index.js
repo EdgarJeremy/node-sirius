@@ -18,6 +18,7 @@ import models from "./core/importer/model";
 import routes from "./core/importer/route";
 import getRoutesData from "./core/inspector/route";
 import utils from "./core/utils";
+import user_token from "./core/middlewares/user_token";
 
 const app = express();
 const server = http.Server(app);
@@ -50,6 +51,18 @@ app.use(sirius({
     showGet: config.request.show_get,
     secret: config.session.secret
 }));
+if(config.user_token.use) {
+    const { tokenSecret, refreshTokenSecret, userModel, tokenExpire, refreshTokenExpire } = config.user_token;
+    if(tokenSecret && refreshTokenSecret && models[userModel] && tokenExpire && refreshTokenExpire) {   
+        app.use(user_token({
+            tokenSecret: tokenSecret,
+            refreshTokenSecret: refreshTokenSecret,
+            userModel: models[userModel],
+            tokenExpire: tokenExpire,
+            refreshTokenExpire: refreshTokenExpire
+        }));
+    }
+}
 
 /**
  * Load semua routes
@@ -88,9 +101,14 @@ models.sequelize.sync({
         { ["Entrypoint".blue.bold]: `${config.server.protocol}://${ip.address()}:${config.server.port}/` }
     );
     const routesData = getRoutesData(app);
-    utils.log("Server berhasil dijalankan!\nAkses semua endpoint yang terdaftar melalui entrypoint yang tertera dibawah.\nGunakan Postman (https://www.getpostman.com/) untuk mendebug API.\nSelamat bekerja :)", "success", "", "\n");
+    utils.log("Server berhasil dijalankan!\nAkses semua endpoint yang terdaftar melalui entrypoint yang tertera dibawah.\nGunakan Postman (https://www.getpostman.com/) untuk mendebug API.\nSelamat bekerja :)", "success", "", "");
     utils.log("Info Aplikasi : ", "", "", " ");
     console.log(motd.toString());
-    utils.log("Daftar endpoint : ", "", "", "");
-    console.log(routesData.string);
+    
+    if (process.argv[2] === "inspect") {
+        utils.log("Daftar endpoint : ", "", "", "");
+        console.log(routesData.string);
+    } else {
+        utils.log("\bGunakan perintah:\n`npm run inspect routes` untuk melihat daftar endpoint yang terdaftar,\n`npm start inspect` untuk langsung menampilkan dafar endpoint pada saat server berjalan", "", "yellow", "");
+    }
 });
