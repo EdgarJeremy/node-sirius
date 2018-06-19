@@ -66,13 +66,15 @@ export default (opts) => {
                 user.password = undefined;
                 req.user = user;
             } catch (err) {
-                const newTokens = await getNewTokens(refreshToken, userModel, tokenSecret, refreshTokenSecret, tokenExpire, refreshTokenExpire);
-                if(newTokens.token && newTokens.refreshToken) {
-                    res.set("Access-Control-Expose-Headers", "x-access-token, x-refresh-token");
-                    res.set("x-access-token", newTokens.token);
-                    res.set("x-refresh-token", newTokens.refreshToken);
-                    newTokens.user.password = undefined;
-                    req.user = newTokens.user;
+                if(err.name === "TokenExpiredError") {
+                    const newTokens = await getNewTokens(refreshToken, userModel, tokenSecret, refreshTokenSecret, tokenExpire, refreshTokenExpire);
+                    if(newTokens.token && newTokens.refreshToken) {
+                        res.set("Access-Control-Expose-Headers", "x-access-token, x-refresh-token");
+                        res.set("x-access-token", newTokens.token);
+                        res.set("x-refresh-token", newTokens.refreshToken);
+                        newTokens.user.password = undefined;
+                        req.user = newTokens.user;
+                    }
                 }
             }
         }
