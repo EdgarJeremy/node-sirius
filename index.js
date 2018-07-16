@@ -52,12 +52,13 @@ app.use(sirius({
     secret: config.session.secret
 }));
 if(config.user_token.use) {
-    const { tokenSecret, refreshTokenSecret, userModel, tokenExpire, refreshTokenExpire } = config.user_token;
+    const { tokenSecret, refreshTokenSecret, userModel, tokenModel, tokenExpire, refreshTokenExpire } = config.user_token;
     if(tokenSecret && refreshTokenSecret && models[userModel] && tokenExpire && refreshTokenExpire) {   
         app.use(user_token({
             tokenSecret: tokenSecret,
             refreshTokenSecret: refreshTokenSecret,
             userModel: models[userModel],
+            tokenModel: models[tokenModel],
             tokenExpire: tokenExpire,
             refreshTokenExpire: refreshTokenExpire
         }));
