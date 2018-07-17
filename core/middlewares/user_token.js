@@ -58,6 +58,14 @@ export default (opts) => {
             const userToken = await generateTokens(userId, userModel, tokenModel, tokenSecret, refreshTokenSecret, tokenExpire, refreshTokenExpire);
             return userToken;
         }
+    
+        req.invalidateAllToken = async (me) => {
+            const oldTokenPromises = [];
+            me.tokens.forEach((tk) => {
+                oldTokenPromises.push(tk.update({ used: 1 }));
+            });
+            await Promise.all(oldTokenPromises);
+        }
 
         /**
          * Get headers data

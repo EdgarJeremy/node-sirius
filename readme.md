@@ -2,6 +2,9 @@
 ***
 Sirius.js - Framework node.js untuk service backend, RESTful API, Websocket Server untuk komunikasi real-time dan server GraphQL
 
+## Postman Collection
+Route dasar Sirius.js bisa disimulasikan di Postman. Lihat [Collection](https://documenter.getpostman.com/view/2768632/RWMENU3Z#4f1085d5-aedf-7b8d-2b89-1163ec7ab4ab)
+
 ## Prasyarat
 ***
 Untuk menggunakan framework ini, pertimbangkan kita sudah menginstall dan memahami hal-hal berikut
