@@ -69,7 +69,7 @@ if(config.user_token.use) {
  * Load semua routes
  */
 Object.keys(routes).forEach(function (route) {
-    app.use(`/${route}`, routes[route](app, models, socketListener));
+    app.use(`/api/${route}`, routes[route](app, models, socketListener));
 });
 
 /**

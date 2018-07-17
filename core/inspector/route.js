@@ -10,7 +10,7 @@ export default (app) => {
 
     Object.keys(routes).forEach((basepoint) => {
         let raw = routes[basepoint];
-        route_data[`/${basepoint}`] = { endpoints: [] };
+        route_data[`/api/${basepoint}`] = { endpoints: [] };
         if (typeof raw === "function") {
             let route = raw(app, null, null);
             route.stack.forEach((info) => {
@@ -18,7 +18,7 @@ export default (app) => {
                 if(route) {
                     let endpoint = route.path;
                     let verbs = route.methods;
-                    route_data[`/${basepoint}`].endpoints.push({ endpoint, verbs: extract_verbs(verbs) });
+                    route_data[`/api/${basepoint}`].endpoints.push({ endpoint, verbs: extract_verbs(verbs) });
                 }
             });
         }
