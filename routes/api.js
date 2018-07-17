@@ -17,19 +17,25 @@ function api(app, models, socketListener) {
             include: [{ model: models.token }],
             where: { username: body.username },
         });
-        if (bcrypt.compareSync(body.password, user.password)) {
-            /** Invalidate old tokens */
-            req.invalidateAllToken(user);
-            delete user.dataValues.tokens;
-            /** Generate new tokens */
-            const userToken = await req.generateUserToken(user.id);
-            res.setStatus(res.OK);
-            res.setData({
-                user,
-                token: userToken.token,
-                refreshToken: userToken.refreshToken
-            });
-            res.go();
+        if(user) {
+            if (bcrypt.compareSync(body.password, user.password)) {
+                /** Invalidate old tokens */
+                req.invalidateAllToken(user);
+                delete user.dataValues.tokens;
+                /** Generate new tokens */
+                const userToken = await req.generateUserToken(user.id);
+                res.setStatus(res.OK);
+                res.setData({
+                    user,
+                    token: userToken.token,
+                    refreshToken: userToken.refreshToken
+                });
+                res.go();
+            } else {
+                res.setStatus(res.GAGAL);
+                res.setMessage("Username / Password salah");
+                res.go();
+            }
         } else {
             res.setStatus(res.GAGAL);
             res.setMessage("Username / Password salah");
