@@ -20,7 +20,7 @@
         "host": "localhost",
         "user": "root",
         "password": "",
-        "database": "project-management",
+        "database": "sirius",
         "port": 3306,
         "dialect": "mysql"
     },

@@ -12,9 +12,6 @@ export default (sequelize, DataTypes) => {
         password: {
             type: DataTypes.STRING(191),
             allowNull: false
-        },
-        type: {
-            type: DataTypes.ENUM(['employee', 'manager', 'admin'])
         }
     }, {
         underscored: true
