@@ -1,3 +1,4 @@
+import _ from "lodash";
 import models from "../importer/model";
 import utils from "../utils";
 import seedconfig from "../../seedconfig";
@@ -5,7 +6,7 @@ import seedconfig from "../../seedconfig";
 const args = process.argv[2];
 
 if (args) {
-    const entity = args.split(":")[0];
+    const entity = _.capitalize(args.split(":")[0]);
     const times = args.split(":")[1] ? args.split(":")[1] : seedconfig.default_times;
 
     if (seedconfig.entities[entity]) {

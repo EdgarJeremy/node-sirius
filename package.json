@@ -1,7 +1,7 @@
 {
-  "name": "sirius.js",
+  "name": "project-management",
   "version": "2.0.0",
-  "description": "Template REST API Sirius Node.js",
+  "description": "Project management system backend build in node.js",
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec babel-node index.js",

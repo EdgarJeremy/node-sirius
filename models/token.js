@@ -26,7 +26,8 @@ export default (sequelize, DataTypes) => {
         /**
          * Definisi relasi tabel disini
          */
-        Token.belongsTo(models.user);
+        let { User } = models;
+        Token.belongsTo(User);
     }
 
     return Token;

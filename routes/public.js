@@ -1,10 +1,10 @@
 /**
- * Api routes
+ * Public routes
  */
 import bcrypt from "bcrypt";
 import { requiredPost } from "../middlewares/validator/request_fields";
 
-function api(app, models, socketListener) {
+function route(app, models, socketListener) {
     let router = app.get("express").Router();
 
     /**
@@ -64,4 +64,4 @@ function api(app, models, socketListener) {
     return router;
 }
 
-module.exports = api;
+module.exports = route;
