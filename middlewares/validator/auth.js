@@ -11,22 +11,15 @@ export function onlyAuth() {
     }
 }
 
-export function onlyAdmin() {
+export function onlyManager() {
     return (req, res, next) => {
-        if (!req.user) {
+        if(!req.user.type === 'manager') {
             res.status(401);
             res.setStatus(res.GAGAL);
-            res.setMessage("Anda belum login");
+            res.setMessage('Akses ditolak');
             res.go();
         } else {
-            if(req.user.level !== "Administrator") {
-                res.status(401);
-                res.setStatus(res.GAGAL);
-                res.setMessage("Level ditolak");
-                res.go();
-            } else {
-                next();
-            }
+            next();
         }
     }
 }

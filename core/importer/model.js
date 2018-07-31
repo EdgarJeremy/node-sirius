@@ -1,6 +1,7 @@
 import Sequelize from "sequelize";
 import path from "path";
 import fs from "fs";
+import _ from "lodash";
 import { database, environment, folders, time } from "../../config.json";
 
 const sequelize = new Sequelize(
@@ -23,7 +24,7 @@ const models = { }
 let folder = path.join(__dirname, "..", "..", folders.models);
 fs.readdirSync(folder).forEach((file) => {
     if(file.indexOf(".js") !== -1 && file !== "index.js") {
-        models[file.replace(".js", "")] = sequelize.import(`${folder}/${file}`);
+        models[_.capitalize(file.replace(".js", ""))] = sequelize.import(`${folder}/${file}`);
     }
 });
 

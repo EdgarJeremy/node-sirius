@@ -18,7 +18,8 @@ export default (sequelize, DataTypes) => {
     });
 
     User.associate = (models) => {
-        User.hasMany(models.token);
+        let { Token } = models;
+        User.hasMany(Token);
     }
 
     return User;

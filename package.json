@@ -1,7 +1,7 @@
 {
   "name": "sirius.js",
   "version": "2.0.0",
-  "description": "Template REST API Sirius Node.js",
+  "description": "A framework for backend services, RESTful API, Websocket Server for real time communication and GraphQL Server",
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec babel-node index.js",

@@ -1,20 +1,21 @@
 /**
- * Api routes
+ * Public routes
  */
 import bcrypt from "bcrypt";
 import { requiredPost } from "../middlewares/validator/request_fields";
+import { a } from "../middlewares/wrapper/request_wrapper";
 
-function api(app, models, socketListener) {
+function route(app, models, socketListener) {
     let router = app.get("express").Router();
 
     /**
      * Router disini..
      */
 
-    router.post("/login", requiredPost(["username", "password"]), async (req, res) => {
+    router.post("/login", requiredPost(["username", "password"]), a(async (req, res) => {
         const body = req.body;
-        const user = await models.user.findOne({
-            include: [{ model: models.token }],
+        const user = await models.User.findOne({
+            include: [{ model: models.Token }],
             where: { username: body.username },
         });
         if(user) {
@@ -41,7 +42,7 @@ function api(app, models, socketListener) {
             res.setMessage("Username / Password salah");
             res.go();
         }
-    });
+    }));
 
     router.get("/check", (req, res) => {
         res.setStatus(req.user ? res.OK : res.GAGAL);
@@ -64,4 +65,4 @@ function api(app, models, socketListener) {
     return router;
 }
 
-module.exports = api;
+module.exports = route;
