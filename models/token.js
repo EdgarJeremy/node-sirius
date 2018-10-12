@@ -27,7 +27,7 @@ export default (sequelize, DataTypes) => {
          * Definisi relasi tabel disini
          */
         let { User } = models;
-        Token.belongsTo(User);
+        Token.belongsTo(User, { onDelete: 'cascade' });
     }
 
     return Token;

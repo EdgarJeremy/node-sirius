@@ -9,17 +9,12 @@ export default (route) => {
 * Penulis : ${os.userInfo().username}
 */
 
+import { a } from '../middlewares/wrapper/request_wrapper';
+import { requiredPost, requiredGet } from '../middlewares/validator/request_fields';
+import { onlyAuth } from '../middlewares/validator/auth';
+
 function ${route}(app, models, socketListener) {
     let router = app.get("express").Router();
-
-    /**
-     * Router disini..
-     */
-    router.get("/index", (req, res) => {
-        res.setStatus(res.OK);
-        res.setData({});
-        res.go();
-    });
 
     return router;
 }

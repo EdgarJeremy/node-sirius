@@ -12,7 +12,7 @@ export default (model) => {
 
 export default (sequelize, DataTypes) => {
 
-    const ${_.capitalize(model)} = sequelize.define("${model.toLowerCase()}", {
+    const ${_.upperFirst(_.camelCase(model))} = sequelize.define("${model.toLowerCase()}", {
         /**
          * Kolom tabel disini..
          */
@@ -20,13 +20,13 @@ export default (sequelize, DataTypes) => {
         underscored: true
     });
 
-    ${_.capitalize(model)}.associate = (models) => {
+    ${_.upperFirst(_.camelCase(model))}.associate = (models) => {
         /**
          * Definisi relasi tabel disini
          */
     }
 
-    return ${_.capitalize(model)};
+    return ${_.upperFirst(_.camelCase(model))};
 
 }`;
 

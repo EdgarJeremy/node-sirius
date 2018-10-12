@@ -18,11 +18,19 @@
     },
     "database": {
         "host": "localhost",
-        "user": "root",
+        "user": "",
         "password": "",
         "database": "sirius",
-        "port": 3306,
-        "dialect": "mysql"
+        "port": 5432,
+        "dialect": "postgres"
+    },
+    "mail": {
+        "host": "smtp.gmail.com",
+        "port": 587,
+        "auth": {
+            "user": "tagconndev@gmail.com",
+            "pass": "hvyewhpredyugubt"
+        }
     },
     "encryption": {
         "salt_rounds": 10
@@ -31,7 +39,7 @@
         "watch": false,
         "renew": false
     },
-    "environment": "production",
+    "environment": "development",
     "time": {
         "zone": "+08:00"
     },

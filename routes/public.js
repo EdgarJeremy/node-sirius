@@ -11,25 +11,32 @@ function route(app, models, socketListener) {
     /**
      * Router disini..
      */
-
     router.post("/login", requiredPost(["username", "password"]), a(async (req, res) => {
         const body = req.body;
         const user = await models.User.findOne({
             include: [{ model: models.Token }],
             where: { username: body.username },
         });
-        if(user) {
+        if (user) {
             if (bcrypt.compareSync(body.password, user.password)) {
                 /** Invalidate old tokens */
                 req.invalidateAllToken(user);
                 delete user.dataValues.tokens;
+                delete user.password;
+                delete user.dataValues.password;
                 /** Generate new tokens */
                 const userToken = await req.generateUserToken(user.id);
+                let firstLogin = true;
+                if (user.last_login) {
+                    firstLogin = false;
+                }
+                user.update({ last_login: new Date() });
                 res.setStatus(res.OK);
                 res.setData({
                     user,
                     token: userToken.token,
-                    refreshToken: userToken.refreshToken
+                    refreshToken: userToken.refreshToken,
+                    firstLogin
                 });
                 res.go();
             } else {
@@ -52,7 +59,7 @@ function route(app, models, socketListener) {
     });
 
     router.get("/logout", (req, res) => {
-        if(req.user)
+        if (req.user)
             req.invalidateAllToken(req.user);
         res.set("Access-Control-Expose-Headers", "x-access-token, x-refresh-token");
         res.set("x-access-token", "");

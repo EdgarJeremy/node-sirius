@@ -65,11 +65,15 @@ if(config.user_token.use) {
     }
 }
 
+app.use(express.static('./frontend'));
+
 /**
  * Load semua routes
  */
 Object.keys(routes).forEach(function (route) {
-    app.use(`/api/${route}`, routes[route](app, models, socketListener));
+    console.log(route);
+    let router = routes[route](app, models, socketListener, 'test');
+    app.use(`/api/${route}`, router);
 });
 
 /**
@@ -91,7 +95,7 @@ models.sequelize.sync({
     alter: config.migration.watch,
     force: config.migration.renew
 }).then(() => {
-    server.listen(config.server.port);
+    server.listen(process.env.PORT || config.server.port);
     socketListener.listen(io);
     console.log('\x1Bc');
     const motd = new Table();
@@ -101,15 +105,9 @@ models.sequelize.sync({
         { ["Running Port".blue.bold]: config.server.port },
         { ["Entrypoint".blue.bold]: `${config.server.protocol}://${ip.address()}:${config.server.port}/` }
     );
-    const routesData = getRoutesData(app);
     utils.log("Server berhasil dijalankan!\nAkses semua endpoint yang terdaftar melalui entrypoint yang tertera dibawah.\nGunakan Postman (https://www.getpostman.com/) untuk mendebug API.\nSelamat bekerja :)", "success", "", "");
     utils.log("Info Aplikasi : ", "", "", " ");
     console.log(motd.toString());
     
-    if (process.argv[2] === "inspect") {
-        utils.log("Daftar endpoint : ", "", "", "");
-        console.log(routesData.string);
-    } else {
-        utils.log("\bGunakan perintah:\n`npm run inspect routes` untuk melihat daftar endpoint yang terdaftar,\n`npm start inspect` untuk langsung menampilkan dafar endpoint pada saat server berjalan", "", "yellow", "");
-    }
+    utils.log("\bGunakan perintah:\n`npm run inspect routes` untuk melihat daftar endpoint yang terdaftar,\n`npm start inspect` untuk langsung menampilkan dafar endpoint pada saat server berjalan", "", "yellow", "");
 });

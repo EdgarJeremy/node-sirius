@@ -12,6 +12,22 @@ export default (sequelize, DataTypes) => {
         password: {
             type: DataTypes.STRING(191),
             allowNull: false
+        },
+        type: {
+            type: DataTypes.ENUM(['administrator', 'user']),
+            allowNull: false
+        },
+        avatar: {
+            type: DataTypes.TEXT('long'),
+            allowNull: false
+        },
+        active: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        },
+        last_login: {
+            type: DataTypes.DATE,
+            defaultValue: null
         }
     }, {
         underscored: true
