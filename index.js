@@ -71,7 +71,6 @@ app.use(express.static('./frontend'));
  * Load semua routes
  */
 Object.keys(routes).forEach(function (route) {
-    console.log(route);
     let router = routes[route](app, models, socketListener, 'test');
     app.use(`/api/${route}`, router);
 });

@@ -16,8 +16,13 @@ function users(app, models, socketListener, t) {
     router.get('/', queryParser, a(async (req, res) => {
         const { User } = models;
         let users = await User.findAndCountAll({
+            distinct: true,
+            attributes: req.parsed.attributes,
             where: { ...req.parsed.filter },
-            order: req.parsed.order
+            order: req.parsed.order,
+            limit: req.parsed.limit,
+            offset: req.parsed.offset,
+            include: []
         });
         res.setStatus(res.OK);
         res.setData(users);
