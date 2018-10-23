@@ -17,10 +17,10 @@
         "models": "models"
     },
     "database": {
-        "host": "localhost",
+        "host": "192.168.1.9",
         "user": "postgres",
-        "password": "",
-        "database": "",
+        "password": "dbsirius221b",
+        "database": "sirius",
         "port": 5432,
         "dialect": "postgres"
     },
