@@ -65,7 +65,7 @@ if(config.user_token.use) {
     }
 }
 
-app.use(express.static('./frontend'));
+app.use(express.static(process.env.NODE_ENV === 'production' ? './frontend' : './inspector'));
 
 /**
  * Load semua routes
@@ -85,6 +85,31 @@ app.get("/", function (req, res) {
         version: packageInfo.version
     });
     res.go();
+});
+
+/**
+ * Inspector API
+ */
+app.get('/app_meta', function(req, res) {
+    let data = {};
+    let routes = getRoutesData(app, models, socketListener);
+    data.routes = [];
+    Object.keys(routes.data).forEach((route) => {
+        data.routes.push({
+            basepoint: route,
+            endpoints: routes.data[route].endpoints
+        });
+    });
+    data.models = [];
+    Object.keys(models).forEach((model) => {
+        if(model !== 'sequelize' && model !== 'Sequelize') {
+            data.models.push({
+                name: model,
+                attributes: models[model].rawAttributes
+            });
+        }
+    })
+    res.json(data);
 });
 
 /**

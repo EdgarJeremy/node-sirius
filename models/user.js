@@ -34,8 +34,8 @@ export default (sequelize, DataTypes) => {
     });
 
     User.associate = (models) => {
-        let { Token } = models;
-        User.hasMany(Token);
+        const { Token } = models;
+        User.hasMany(Token, { onDelete: 'cascade' });
     }
 
     return User;

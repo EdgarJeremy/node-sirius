@@ -29,7 +29,7 @@ export function parser(opts) {
     return (req, res, next) => {
         let query = req.query;
         let filter = query.filter || '';
-        let order = query.order || '';
+        let order = query.order || '\\created_at';
         let attributes = query.attributes ? query.attributes.split(',') : ['id'];
         let limit = query.limit;
         let offset = query.offset;

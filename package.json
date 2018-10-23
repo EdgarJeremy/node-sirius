@@ -1,14 +1,14 @@
 {
-  "name": "sirius.js",
-  "version": "2.0.0",
-  "description": "A framework for backend services, RESTful API, Websocket Server for real time communication and GraphQL Server",
+  "name": "KosKu",
+  "version": "1.0.0",
+  "description": "Backend engine for KosKu Web & Mobile App",
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf build && mkdir build",
     "build-babel": "babel -d ./build . -S --ignore node_modules,frontend --copy-files",
     "build": "npm run clean && npm run build-babel && cp -R ./frontend ./build",
     "start": "npm run build && node ./build/index.js",
-    "dev": "nodemon --exec babel-node index.js",
+    "dev": "cross-env NODE_ENV=development nodemon --exec babel-node index.js",
     "seed": "babel-node ./core/generator/seed.js",
     "make": "babel-node ./core/generator/make.js",
     "inspect": "babel-node ./core/inspector/cli.js",
@@ -54,6 +54,7 @@
     "babel-preset-stage-3": "^6.24.1",
     "cli-table": "^0.3.1",
     "colors": "^1.3.0",
+    "cross-env": "^5.2.0",
     "ip": "^1.1.5",
     "prompt": "^1.0.0"
   }

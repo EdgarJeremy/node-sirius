@@ -4,7 +4,7 @@ import fs from "fs";
 import _ from "lodash";
 import { database, environment, folders, time } from "../../config.json";
 
-let db = process.env.NODE_ENV !== 'production' ? database : ({
+let db = process.env.NODE_ENV === 'development' ? database : ({
     database: process.env.DB_DATABASE,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,

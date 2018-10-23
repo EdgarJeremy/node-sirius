@@ -4,7 +4,7 @@ import { server } from "../../config.json";
 import routes from "../importer/route";
 import colors from "colors";
 
-export default (app) => {
+export default (app, models) => {
 
     let route_data = {};
 
@@ -12,13 +12,14 @@ export default (app) => {
         let raw = routes[basepoint];
         route_data[`/api/${basepoint}`] = { endpoints: [] };
         if (typeof raw === "function") {
-            let route = raw(app, null, null);
+            let route = raw(app, models, null);
             route.stack.forEach((info) => {
                 let { route } = info;
                 if(route) {
                     let endpoint = route.path;
                     let verbs = route.methods;
-                    route_data[`/api/${basepoint}`].endpoints.push({ endpoint, verbs: extract_verbs(verbs) });
+                    let keys = info.keys.map((t) => t.name);
+                    route_data[`/api/${basepoint}`].endpoints.push({ endpoint, verbs: extract_verbs(verbs), keys });
                 }
             });
         }
