@@ -1,7 +1,7 @@
 {
-  "name": "KosKu",
-  "version": "1.0.0",
-  "description": "Backend engine for KosKu Web & Mobile App",
+  "name": "Sirius",
+  "version": "2.2.0",
+  "description": "Sirius.js Framework",
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf build && mkdir build",
