@@ -17,12 +17,12 @@
         "models": "models"
     },
     "database": {
-        "host": "192.168.1.9",
-        "user": "postgres",
-        "password": "dbsirius221b",
-        "database": "sirius",
-        "port": 5432,
-        "dialect": "postgres"
+        "host": "localhost",
+        "user": "root",
+        "password": "sirius",
+        "database": "yolo",
+        "port": 3306,
+        "dialect": "mysql"
     },
     "mail": {
         "host": "smtp.gmail.com",

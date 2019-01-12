@@ -105,6 +105,7 @@ app.get('/app_meta', function(req, res) {
         if(model !== 'sequelize' && model !== 'Sequelize') {
             data.models.push({
                 name: model,
+                basepoint: models[model].getTableName(),
                 attributes: models[model].rawAttributes
             });
         }
